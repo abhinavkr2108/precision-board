@@ -78,13 +78,11 @@ export default function Features() {
           <ul className="grid gap-8 sm:grid-cols-2">
             {features.map((item, idx) => (
               <li key={idx} className="flex gap-x-4">
-                <div className="flex-none w-12 h-12 bg-gray-700 text-cyan-400 rounded-lg flex items-center justify-center">
+                <div className="flex-none w-12 h-12 bg-gray-200 text-cyan-400 rounded-lg flex items-center justify-center">
                   {item.icon}
                 </div>
                 <div>
-                  <h4 className="text-lg text-gray-100 font-semibold">
-                    {item.title}
-                  </h4>
+                  <h4 className="text-lg font-semibold">{item.title}</h4>
                   <p className="mt-3">{item.desc}</p>
                 </div>
               </li>
