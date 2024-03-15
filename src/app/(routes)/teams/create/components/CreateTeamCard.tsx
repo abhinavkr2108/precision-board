@@ -40,7 +40,7 @@ export default function CreateTeamCard() {
       });
   };
   return (
-    <Card className="w-1/4 shadow-md">
+    <Card className="max-w-3xl shadow-md">
       <CardContent>
         <CardHeader>
           <CardTitle className="text-2xl text-center">Create Team</CardTitle>

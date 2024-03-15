@@ -1,6 +1,7 @@
 import React from "react";
 import DashboardContent from "./dashboardcontent";
-import Sidebar from "@/components/shared/Sidebar";
+import { MenuIcon } from "lucide-react";
+import Sidebar from "./components/Sidebar";
 
 export default function DashboardLayout({
   children,
@@ -8,11 +9,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <div>
+    <div className="flex">
+      <div className="hidden md:flex md:w-72 border-r h-screen">
         <Sidebar />
       </div>
-      <div>
+      <div className="flex md:hidden p-4">
+        <MenuIcon />
+      </div>
+      <div className="flex-grow">
         <DashboardContent>{children}</DashboardContent>
       </div>
     </div>

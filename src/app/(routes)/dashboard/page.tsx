@@ -12,9 +12,5 @@ export default async function DashboardPage() {
     return "Not logged in";
   }
 
-  return (
-    <div>
-      <Header user={currentUser} />
-    </div>
-  );
+  return <div>Dashboard</div>;
 }
