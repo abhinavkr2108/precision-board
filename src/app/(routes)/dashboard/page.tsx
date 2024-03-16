@@ -2,6 +2,8 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { useQuery } from "convex/react";
 import React from "react";
 import { api } from "../../../../convex/_generated/api";
+import Header from "./components/Header";
+import FilesTable from "./components/FilesTable";
 
 export default async function DashboardPage() {
   const { getUser } = getKindeServerSession();
@@ -11,5 +13,10 @@ export default async function DashboardPage() {
     return "Not logged in";
   }
 
-  return <div>Dashboard</div>;
+  return (
+    <div>
+      <Header />
+      <FilesTable />
+    </div>
+  );
 }

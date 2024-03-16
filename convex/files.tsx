@@ -15,3 +15,17 @@ export const createFile = mutation({
     return result;
   },
 });
+
+export const getFiles = query({
+  args: {
+    teamId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db
+      .query("files")
+      .filter((q) => q.eq(q.field("teamId"), args.teamId))
+      .order("desc")
+      .collect();
+    return result;
+  },
+});

@@ -24,6 +24,7 @@ import {
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import CreateNewFile from "./CreateNewFile";
+import { useTeamStore } from "@/lib/store";
 
 interface SidebarTeamProps {
   user: KindeUser;
@@ -43,24 +44,29 @@ export default function SidebarTeam({ user }: SidebarTeamProps) {
       link: "/settings",
     },
   ];
-  const [teamList, setTeamList] = useState<Team[]>([]);
-  const [activeTeam, setActiveTeam] = useState<Team>();
+  // const [teamList, setTeamList] = useState<Team[]>([]);
+  // const [activeTeam, setActiveTeam] = useState<Team>();
 
   const convex = useConvex();
   const router = useRouter();
+  const { activeTeam, setActiveTeam, getTeamList, teamList } = useTeamStore();
 
-  const getTeamList = useCallback(async () => {
-    const result = await convex.query(api.teams.getTeams, {
-      email: user?.email as string,
-    });
-    setTeamList(result);
-    setActiveTeam(result[0]);
-    return result;
-  }, [convex, user]);
+  // const getTeamList = useCallback(async () => {
+  //   const result = await convex.query(api.teams.getTeams, {
+  //     email: user?.email as string,
+  //   });
+  //   setTeamList(result);
+  //   setActiveTeam(result[0]);
+  //   return result;
+  // }, [convex, user]);
 
   useEffect(() => {
-    getTeamList();
+    getTeamList(convex, user);
   }, [convex, user, getTeamList]);
+
+  if (!teamList || teamList === undefined) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -74,9 +80,12 @@ export default function SidebarTeam({ user }: SidebarTeamProps) {
         <PopoverContent>
           <div className="flex flex-col gap-3 mt-2">
             <Select
-              onValueChange={(value) =>
-                setActiveTeam(teamList.find((team) => team.name === value))
-              }
+              onValueChange={(value) => {
+                const team = teamList.find((team) => team.name === value);
+                if (team) {
+                  setActiveTeam(team);
+                }
+              }}
             >
               <SelectTrigger>
                 <SelectValue placeholder={activeTeam?.name} />
