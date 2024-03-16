@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import CreateNewFile from "./CreateNewFile";
 
 interface SidebarTeamProps {
   user: KindeUser;
@@ -62,7 +63,7 @@ export default function SidebarTeam({ user }: SidebarTeamProps) {
   }, [convex, user, getTeamList]);
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <Popover>
         <PopoverTrigger className="w-full">
           <div className="flex items-center gap-2 cursor-pointer hover:bg-gray-200 rounded-md border-b">
@@ -126,6 +127,7 @@ export default function SidebarTeam({ user }: SidebarTeamProps) {
           </div>
         </PopoverContent>
       </Popover>
+      <CreateNewFile user={user} team={activeTeam} />
     </div>
   );
 }

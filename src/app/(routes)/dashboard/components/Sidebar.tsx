@@ -16,7 +16,7 @@ export default async function Sidebar() {
     <div className="p-4 w-full h-full flex flex-col justify-between">
       <div className="flex flex-col gap-4">
         <SidebarTeam user={currentUser} />
-        <CreateNewFile />
+        {/* <CreateNewFile user={currentUser} /> */}
       </div>
       <User user={currentUser} />
     </div>

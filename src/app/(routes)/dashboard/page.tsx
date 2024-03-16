@@ -1,4 +1,3 @@
-import Header from "@/components/shared/Header";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { useQuery } from "convex/react";
 import React from "react";
