@@ -25,7 +25,7 @@ export default function FilesTable() {
   }, [convex, activeTeam]);
 
   useEffect(() => {
-    fetchFiles();
+    activeTeam && fetchFiles();
   }, [convex, activeTeam, fetchFiles]);
 
   const navigateToWorkspace = (fileId: string) => {

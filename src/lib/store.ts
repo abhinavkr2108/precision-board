@@ -11,6 +11,13 @@ type TeamState = {
   getTeamList: (convex: ConvexReactClient, user: KindeUser) => Promise<void>;
 };
 
+type DocumentStore = {
+  editor: any;
+  setEditor: (editor: any) => void;
+  saveDocument: (editor: any) => Promise<any>;
+  // updateDocument: (fileId: string, document: string) => void;
+};
+
 export const useTeamStore = create<TeamState>((set, get) => {
   return {
     teamList: [],
@@ -24,3 +31,19 @@ export const useTeamStore = create<TeamState>((set, get) => {
     setActiveTeam: (team: Team) => set({ activeTeam: team }),
   };
 });
+
+export const useDocumentStore = create<DocumentStore>((set) => ({
+  editor: null,
+  setEditor: (editor: any) => set({ editor }),
+  saveDocument: (editor: any): Promise<any> => {
+    return editor
+      .save()
+      .then((outputData: any) => {
+        console.log("Article data: ", outputData);
+        return outputData;
+      })
+      .catch((error: any) => {
+        console.log("Saving failed: ", error);
+      });
+  },
+}));
