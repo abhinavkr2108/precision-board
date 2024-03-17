@@ -28,9 +28,6 @@ export default function LandingPage() {
             <LoginLink postLoginRedirectURL="/dashboard">
               <Button className="font-bold">Get Started</Button>
             </LoginLink>
-            <Button variant={"secondary"} className="font-bold">
-              Know More
-            </Button>
           </div>
         </div>
         <div className="flex-1 text-center mt-4 lg:mt-0 lg:ml-3">
