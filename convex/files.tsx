@@ -54,3 +54,13 @@ export const updateDocument = mutation({
     return result;
   },
 });
+
+export const retrieveFileContent = query({
+  args: {
+    _id: v.id("files"),
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db.get(args._id); // Single Data Retrieval
+    return result;
+  },
+});
