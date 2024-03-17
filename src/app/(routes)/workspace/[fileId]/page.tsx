@@ -22,7 +22,7 @@ export default function WorkspacePage(props: WorkspacePageProps) {
           <Workspace fileId={filedId} />
         </div>
         <div className="bg-white rounded-md shadow-md p-4 md:col-span-2">
-          <Canvas />
+          <Canvas fileId={filedId} />
         </div>
       </div>
     </div>

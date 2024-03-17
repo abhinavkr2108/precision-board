@@ -3,6 +3,7 @@ import { Team } from "./types/teams";
 import { api } from "../../convex/_generated/api";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs/dist/types";
 import { ConvexReactClient } from "convex/react";
+import { File } from "./types/files";
 
 type TeamState = {
   teamList: Team[] | undefined;
@@ -15,7 +16,10 @@ type DocumentStore = {
   editor: any;
   setEditor: (editor: any) => void;
   saveDocument: (editor: any) => Promise<any>;
-  // updateDocument: (fileId: string, document: string) => void;
+  whiteboardData: any;
+  setWhiteboardData: (data: any) => void;
+  convexFile: File | undefined;
+  setConvexFile: (file: File) => void;
 };
 
 export const useTeamStore = create<TeamState>((set, get) => {
@@ -46,4 +50,8 @@ export const useDocumentStore = create<DocumentStore>((set) => ({
         console.log("Saving failed: ", error);
       });
   },
+  whiteboardData: null,
+  setWhiteboardData: (data: any) => set({ ...data, whiteboardData: data }),
+  convexFile: undefined,
+  setConvexFile: (file: File) => set({ convexFile: file }),
 }));

@@ -17,8 +17,9 @@ export default function Header({ fileId }: HeaderProps) {
 
   const convex = useConvex();
   const updateDocument = useMutation(api.files.updateDocument);
+  const updateWhiteboard = useMutation(api.files.updateWhiteboard);
 
-  const { saveDocument, editor } = useDocumentStore();
+  const { saveDocument, editor, whiteboardData } = useDocumentStore();
 
   const getFileName = useCallback(async () => {
     const result = await convex.query(api.files.getFileName, {
@@ -34,6 +35,10 @@ export default function Header({ fileId }: HeaderProps) {
       updateDocument({
         _id: fileId as Id<"files">,
         document: JSON.stringify(result),
+      });
+      updateWhiteboard({
+        _id: fileId as Id<"files">,
+        whiteboard: JSON.stringify(whiteboardData),
       });
 
       toast.success("Saved Document");

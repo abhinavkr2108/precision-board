@@ -38,7 +38,8 @@ interface WorkspaceProps {
   fileId: string;
 }
 export default function Workspace({ fileId }: WorkspaceProps) {
-  const { saveDocument, setEditor } = useDocumentStore();
+  const { saveDocument, setEditor, convexFile, setConvexFile } =
+    useDocumentStore();
 
   const [fileData, setFileData] = useState<File>();
   const ref = useRef<EditorJS>();
@@ -68,12 +69,12 @@ export default function Workspace({ fileId }: WorkspaceProps) {
     setEditor(editor);
   }, [setEditor, fileData]);
 
-  const getDocument = useCallback(async () => {
-    const result = await convex.query(api.files.retrieveFileContent, {
-      _id: fileId as Id<"files">,
-    });
-    setFileData(result);
-  }, [convex, fileId]);
+  //   const getDocument = useCallback(async () => {
+  //     const result = await convex.query(api.files.retrieveFileContent, {
+  //       _id: fileId as Id<"files">,
+  //     });
+  //     setFileData(result);
+  //   }, [convex, fileId]);
 
   useEffect(() => {
     fileData && initializeEditor();
@@ -86,10 +87,11 @@ export default function Workspace({ fileId }: WorkspaceProps) {
           _id: fileId as Id<"files">,
         });
         setFileData(result);
+        setConvexFile(result);
       };
       getDoc();
     }
-  }, [convex, fileId]);
+  }, [convex, fileId, setConvexFile]);
 
   //   useEffect(() => {
   //     fileId && getDocument();
