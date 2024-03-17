@@ -1,5 +1,5 @@
 "use client";
-import { useConvex } from "convex/react";
+import { useConvex, useMutation } from "convex/react";
 import { api } from "../../../../../convex/_generated/api";
 import { useTeamStore } from "@/lib/store";
 import { useCallback, useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { File } from "@/lib/types/files";
 import moment from "moment";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { Id } from "../../../../../convex/_generated/dataModel";
 
 export default function FilesTable() {
   const { activeTeam } = useTeamStore();
@@ -16,6 +17,8 @@ export default function FilesTable() {
   const convex = useConvex();
   const router = useRouter();
 
+  const deleteFile = useMutation(api.files.deleteFile);
+
   const fetchFiles = useCallback(async () => {
     const result = await convex.query(api.files.getFiles, {
       teamId: activeTeam?._id as string,
@@ -23,6 +26,13 @@ export default function FilesTable() {
     setFiles(result);
     return result;
   }, [convex, activeTeam]);
+
+  const deleteFileHandler = async (fileId: string) => {
+    deleteFile({
+      _id: fileId as Id<"files">,
+    });
+    window.location.reload();
+  };
 
   useEffect(() => {
     activeTeam && fetchFiles();
@@ -62,8 +72,12 @@ export default function FilesTable() {
                   >
                     View
                   </Button>
-                  <Button variant={"outline"}>Archive</Button>
-                  <Button variant={"destructive"}>Delete</Button>
+                  <Button
+                    variant={"destructive"}
+                    onClick={() => deleteFileHandler(file._id)}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))}
